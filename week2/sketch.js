@@ -1,38 +1,34 @@
-let x
-let ySpeed
-let xSpeed
-let diameter = 50
-let y = diameter+1
+let bayWidth = 100
+let rows = 10
+let on
+
 function setup() {
   createCanvas(windowWidth, windowHeight)
-  x = random(width)
-  ySpeed = random(-10, 10)
-  xSpeed = random(-10, 10)
-  rectMode(CENTER)
-  strokeWeight(5)
+  background(0,0,20)
 }
 
 function draw() {
-  background(25, 80)
-  stroke(300,200,0)
-  fill(40)
-  ellipse(x, y, diameter, diameter)
-  
-  if(y >= height - diameter/2){
-    ySpeed = -ySpeed
-  }
-  if(y <= diameter/2){
-    ySpeed = -ySpeed
-  }
-  if(x >= width - diameter/2){
-    xSpeed = -xSpeed
-  }
-  if(x <= diameter/2){
-    xSpeed = -xSpeed
-  }
 
-  y+=ySpeed
-  x+=xSpeed
-
-  print(y)
 }
+
+function mouseClicked() {
+  background(0,0,20,30)
+  let units = int(random(2,6))
+  fill(50)
+  rect(mouseX - units*bayWidth/2-bayWidth/4, mouseY, units*bayWidth+bayWidth/2, height)
+  let windowOriginX = mouseX - bayWidth*((units*2)-1)/4
+  let windowOriginY = mouseY + bayWidth/2
+  for (let i = 0; i < units; i++) {
+    for (let j = 0; j < rows; j++){
+      on = random(-1,1)
+      if (on > 0) {
+        fill(0,0,20)
+      } else {
+        fill(255,200,0)
+      }
+      rect(windowOriginX + i*bayWidth, windowOriginY + j*bayWidth, bayWidth/2, bayWidth/2)
+    }
+  }
+  
+}
+

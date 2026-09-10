@@ -1,0 +1,10 @@
+Taylor Urbshott
+Week 1 reflection:
+
+This week centered on the creation of a simple HTML page sharing an example of creative coding. 
+From the get go I had a familiarity with HTML, so building out a page was straightforward following the class examples and templates shared. 
+To push myself a little further, I decided to look up how to integrate an image, sourced from the website of the project I chose and began to build out a style.css file for my overall site.
+After a quick search to confirm css syntax, I did some basic font, color, and padding changes to beautify the page, and placed the styles.css file in the root folder for all pages to access via linking ‘up’ a folder in the project hierarchy. 
+A quick search revealed this notation to be “../”.
+Interestingly I noticed that the website template shared for the class had each HTML page embedded in its own folder, and labelled as index, the implication being that for every folder linked to, index.html will be the default page.
+As this is a method I am not familiar with I’ve decided to try to use it, however depending on file naming confusion later in the semester I may change each respective HTML file to have bespoke naming.
