@@ -1,0 +1,18 @@
+Taylor Urbshott
+Week 2 reflection:
+
+This week I started with the development of a generative skyline, with a user clicking the screen to input height and location from which a building would be generated. 
+I found this most useful in practicing randomness in color mapping for building and object colors, random select from list for building features, and the logic behind nested for loops found in the window logic.
+
+Moving on I decided to try building out a ‘spray’ interaction with a mouse click and hold creating a proxy of paint that expands as time goes on. 
+The trickiest part of developing this interaction was smoothing the spray as it would appear concentrated where the mouse was each frame rather than a continuous flow from where the mouse was in the previous frame. 
+I was able to solve this using a lerp between the pmouse and mouse coordinates divided evenly based on delta time between frames. 
+What I was unable to solve was the placement of an image in setup, but moved on as the bug could not be isolated.
+
+For my third sketch I had a circle ‘chase’ the mouse, with a logic of it moving 1/10 of the distance from it to the mouse every frame. 
+This smoothed the interaction, and then if the distance between the center of the circle and the mouse was less that the radius of the circle (meaning the mouse was overlapping), both the circle and the background would change color.
+I implemented a deltaTime cooldown in this so that the colors did not rapidly flash on overlap.
+
+Lastly, I built out an interaction with a randomly sized set of boxes that ‘wobble’ if hovered over. 
+Then depending on mouse-over time the square would saturate red and pop. 
+This had me using arrays to keep track of respective square sizes, locations, and hover-times as well as creating a cooldown that would revert to baseline if left alone.
