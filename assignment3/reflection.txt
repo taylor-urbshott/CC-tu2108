@@ -1,0 +1,29 @@
+Week 3 Reflection
+
+In the creation of work based on transformations and emergence, I chose to experiment with time, recursion, and even revisiting a previous computational art project.
+
+Sketch 1 began as a sandbox to test out scale, translate, and rotate on a single shape. 
+Starting with scale, I built an interaction that began with a centered hollow square that, depending on the lerped x position of the user’s mouse, multiplied and scaled up to make a large number of nested squares. 
+To add complexity, I layered in a translation for every new square placed that was dependent on the mouse’s lerped y position. 
+This effectively skewed the illusion of nested squares, adding a parallax effect towards the lower-right. 
+Then, in one final addition I layered in a rotate transformation that was both dependent on lerped y coordinates of the mouse and time, making both the time elapsed and the mouse able to compound effect for emergence. 
+This added the most complexity, and was polished with a hue progression realized in the layered square strokes.
+
+Moving on, I attempted to recreate a project that I created without transformations in  Processing. 
+The primary mechanism was through the draw function, with bezier curves appended to a continuous line with each frame. 
+This was difficult with translations and I was unable to build out the logic for compounded transformations between draw calls. 
+Instead, I opted to start a new sketch instance, lower the frame rate, and make the program draw a full picture in each frame. 
+This proved successful, and with calibration of stroke weight, stroke color, curve count, and curve length I was able to get the effect I was aiming for: a nebula cloud. 
+As a final layer of detail I added a small pale yellow dot near each transformation origin to create a star cloud that followed the density of the nebula.
+
+For my next sketch, Sketch 4, I tested recursion. 
+I was looking for a way to quickly layer complexity and accomplished this through a branching logic that used rotation to draw branches in tandem while using translation and scaling to draw child branches. 
+I had some difficulty here enabling both depth and breadth in my sketch, but was able to solve this by adding a ‘let’ in front of a variable initialization. 
+I am still not 100% sure why this worked but likely it was due to function scope management. 
+I then made rotation factors a function of lerped mouse X and scale factors a function of lerped mouse Y to enable interaction and control over emergence. 
+In a bit of experimentation, I also edited a clone of the sketch to have limb rotation a function of how deep in the array the respective limb was. 
+This added an uneven logic, allowing new forms to be created with very similar logic.
+
+Finally, I realized that I had not built out nested loops (although I would argue recursion counts) so I built out a quick final sketch inspired by the work of Humans since 1982. 
+Here, I have an array of clocks that are both impacted by frame rate, the mouse’s position on a given axis, and the location of the clock. 
+While not as interesting as I had hoped, it still proved visually interesting in its creation of waveforms through simple translation and scaling.
