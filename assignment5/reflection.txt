@@ -1,0 +1,25 @@
+Week 4 Reflection
+
+This week I tested out the pen plotters in documenting the p5.js sketches I have been developing over the past week. 
+The first step in this was the limiting of my canvases to an area that would fit on the page. 
+I began with my “unwound” sketch from last week, adapting the code to the recommended proportions and support .svg export. 
+This was then clipped and pasted into my other sketches with trial-and-error determining how I scaled each respective sketch.
+
+I then tested some representative techniques on a scrap piece of paper to analyze drawing tools for desired effects (see palettetest.jpg). 
+This involved an array of drawing implements, including opaque sharpies, standard ink pens, gel pens, crayons, colored pencils, oil pastels, and even chalk. 
+What I chose to explore for this week in learning the pen plotter protocol was a combination of sharpies, standard ink pens, and gel pens.
+
+I began my plotting test with the “unwound” sketch, first implementing it with silver sharpie on black paper. 
+I found that without rescaling the canvas, the drawing is made in the top corner, so for my second trial I expanded the canvas so the output would be centered. 
+I also tried to layer linework onto the silver sharpie, however there was an alignment issue that arose. 
+I aim to try this again in the future, hoping that the error was just a simple mistake of forgetting to zero the plotter before one of the plots (see unwound.jpg).
+
+Moving on, I experimented with drawing one of my recursive sketches with ink on plain drawing paper. 
+What I found when using a thinner line weight was that the plotter was not as precise as I expected, with linework not being perfectly straight (see wavylines.jpg and uneventree1.jpg).
+
+Then I worked with gel pens on black paper to document my nebula sketch. 
+Interestingly, I found that .svg output from p5.js isn’t clipped by the canvas. 
+Because I was already set up, I quickly solved this by rearranging some of the linework to be within the bounds of the recommended ‘postcard’ scale (see nebulagenerator.jpg).
+
+Lastly, I wanted to try a scaled up version of my recursive sketch with the thinnest lineweight I had, resulting in the second drawing from the uneven tree sketch (see uneventree2.jpg).
+

@@ -1,16 +1,18 @@
-let sproutDepth = 4;
-let sproutBreadth = 6;
+let sproutDepth = 3;
+let sproutBreadth = 9;
 let sproutLength = 200;
 let rotateFactor = 0.3;
 let lrpMouseX, lrpMouseY;
 p5.disableFriendlyErrors = true; // keep warnings quiet
 let bDoExportSvg = false; 
+let newAngle = 0;
 
 function setup() {
-  createCanvas(600, 600);
+  createCanvas(800, 800);
   angleMode(DEGREES);
   lrpMouseX = 0;
   lrpMouseY = 0;
+  noFill();
 }
 
 function draw() {
@@ -46,15 +48,22 @@ function sprout(x, y, depth) {
   } else {
     push()
     translate(x, y);
-    scale(map(lrpMouseY, 0, height, 0.4, 0.8));
+    scale(0.7);
+    rotate(newAngle);
     for (let i = 0; i < sproutBreadth; i++) {
-      rotate(i * map(lrpMouseX, 0, width, -180, 180));
-      let newY = sproutLength;
-      line (0, 0, 0, newY);
-      curve(0, 0, 0, newY, )
-      sprout(0, newY, newDepth);
+      push()
+      newAngle = 50 * noise(depth) * (i - 4) * map(lrpMouseX, 0, width, -360, 360);
+      let newX = sproutLength*sin(newAngle/2);
+      let newY = -sproutLength*cos(newAngle/2);
+      let anchX = newX + (sproutLength/2) * (-sin(newAngle));
+      let anchY = newY + (sproutLength/2) * (cos(newAngle));
+      // line (0, 0, 0, newY);
+      bezier(0, 0, 0, -sproutLength/2, anchX, anchY, newX, newY)
+      sprout(newX, newY, newDepth);
+      pop()
 
     }
     pop();
   }
 }
+
