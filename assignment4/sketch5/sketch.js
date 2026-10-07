@@ -7,7 +7,7 @@ p5.disableFriendlyErrors = true; // keep warnings quiet
 let bDoExportSvg = false; 
 
 function setup() {
-  createCanvas(600, 600);
+  createCanvas(576, 384);
   angleMode(DEGREES);
   lrpMouseX = 0;
   lrpMouseY = 0;
@@ -47,11 +47,11 @@ function sprout(x, y, depth) {
     push()
     translate(x, y);
     scale(map(lrpMouseY, 0, height, 0.4, 0.8));
+    rotate(map(lrpMouseX, 0, width, -360, 0))
     for (let i = 0; i < sproutBreadth; i++) {
-      rotate(i * map(lrpMouseX, 0, width, -180, 180));
+      rotate(i * map(lrpMouseX, 0, width, -360, 360));
       let newY = sproutLength;
       line (0, 0, 0, newY);
-      curve(0, 0, 0, newY, )
       sprout(0, newY, newDepth);
 
     }
