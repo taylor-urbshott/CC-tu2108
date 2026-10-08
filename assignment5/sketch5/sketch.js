@@ -1,5 +1,5 @@
-let sproutDepth = 3;
-let sproutBreadth = 9;
+let sproutDepth = 5;
+let sproutBreadth = 7;
 let sproutLength = 200;
 let rotateFactor = 0.3;
 let lrpMouseX, lrpMouseY;
