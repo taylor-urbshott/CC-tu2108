@@ -1,65 +1,136 @@
+let density = 20;
+let cells = [];
+let xCt = 20;
+let yCt = 15;
+let xScale, yScale;
+let playerX, playerY;
+let lastPlayerDir = 0;
+let playerSpeed = 2.5;
+let frameCt = 0;
+let frames = [];
+let color1, color2;
+let decay = 0.005;
+let portalX, portalY;
+let portalColor;
 
-let curveScale = 40;
-let starSpread = 2;
-let curveLen = 40;
-let maxCt = 10;
-let crvX = [0, 0, 0, 0];
-let crvY = [0, 0, 0, 0];
-p5.disableFriendlyErrors = true; // keep warnings quiet
-let bDoExportSvg = false; 
-
-
-function setup() {
-  createCanvas(576, 384);
-  rectMode(CENTER);
+async function setup() {
+  createCanvas(windowWidth, windowHeight);
+  frameRate(40);
   angleMode(DEGREES);
-  colorMode(HSB);
-  noFill();
-  stroke(255);
-  background(220, 100, 8);
-  frameRate(1);
-  strokeWeight(1);
-  
-}
+  imageMode(CENTER);
+  noStroke();
+  color1 = color(120, 214, 170);
+  color2 = color(0, 0, 0);
 
-//scope issue?
-function draw() {
-  if (bDoExportSvg){
-    beginRecordSvg("myOutput.svg");
-  }
+  portalX = int(random(xCt));
+  portalY = int(random(yCt));
+  print(portalX);
+  portalColor = color(230, 113, 158);
 
-  background(220, 100, 8);
-  
-  for (let i = 0; i < maxCt; i++) {
-    push();
-    translate(width/2, height/2);
-    
-    for (let j = 0; j < curveLen; j++) {
-      stroke(i * 18 + 180, 100, 100);
-      crvX[1] = crvX[3] - crvX[2];
-      crvY[1] = crvY[3] - crvY[2];
-      crvX[2] = random(-curveScale, curveScale);
-      crvY[2] = random(-curveScale, curveScale);
-      crvX[3] = random(-curveScale, curveScale);
-      crvY[3] = random(-curveScale, curveScale);
-      bezier(crvX[0], crvY[0], crvX[1], crvY[1], crvX[2], crvY[2], crvX[3], crvY[3]);
-      //line(crvX[0], crvY[0], crvX[3], crvY[3]);
-      stroke(50, 10, random(0,100));
-      // circle(crvX[3] - starSpread * random(-curveScale, curveScale), crvY[3] - starSpread * random(-curveScale, curveScale), 1)
-      translate(crvX[3], crvY[3]);
+  // grid setup
+  xScale = int(width/xCt);
+  yScale = int(height/yCt);
+  for (let i = 0; i < xCt; i++) {
+    cells[i] = [];
+    for (let j = 0; j < yCt; j++) {
+      if (i == portalX && j == portalY) {
+        cells[i][j] = new Cell(i, j, xScale, yScale, true);
+      } else {
+        cells[i][j] = new Cell(i, j, xScale, yScale, false);
+      }
       
     }
-    pop();
   }
-  if (bDoExportSvg){
-    endRecordSvg();
-    bDoExportSvg = false;
+  // player setup
+  playerX = width/2;
+  playerY = height/2;
+  for (let i = 0; i < 12; i++) {
+    frames[i] = await loadImage("../spriteframes/blob_" + (i) + '.png');
+    print(frames[i]);
   }
-  
 }
 
-function keyPressed(){
-  if (key == 's'){ 
-    bDoExportSvg = true; 
+function draw() {
+
+  let img = frames[frameCt % frames.length];
+
+  if (keyIsDown(68) && keyIsDown(83) || keyIsDown(68) && keyIsDown(65) || keyIsDown(68) && keyIsDown(87) || keyIsDown(83) && keyIsDown(65) || keyIsDown(683) && keyIsDown(87) || keyIsDown(65) && keyIsDown(87)) {
+    d = 0;
+  } else if (keyIsDown(68)) {
+    // d key
+    d = 0;
+    lastPlayerDir = d;
+    frameCt++;
+    playerX += playerSpeed;
+  } else if (keyIsDown(83)) {
+    // s key
+    d = 90;
+    lastPlayerDir = d;
+    frameCt++;
+    playerY += playerSpeed;
+  } else if (keyIsDown(65)) {
+    // a key
+    d = 180;
+    lastPlayerDir = d;
+    frameCt++;
+    playerX -= playerSpeed;
+  } else if (keyIsDown(87)) {
+    // w key
+    d = 270;
+    lastPlayerDir = d;
+    frameCt++;
+    playerY -= playerSpeed;
+  } else {
+    d = 0;
+  }
+
+  for (let i = 0; i < xCt; i++) {
+    for (let j = 0; j < yCt; j++) {
+      if (cells[i][j].x < playerX && (cells[i][j].x + xScale) > playerX && cells[i][j].y < playerY && (cells[i][j].y + yScale) > playerY) {
+        cells[i][j].visit();
+        
+      }
+      cells[i][j].update();
+    }
+  }
+  
+  push();
+  translate(playerX, playerY);
+  rotate(lastPlayerDir);
+  image(img, 0, 0);
+  pop();
+
+}
+  
+class Cell {
+  constructor(col, row, xScale, yScale, isPortal){
+    this.x = col * xScale;
+    this.y = row * yScale;
+    this.xScale = xScale;
+    this.yScale = yScale;
+    this.isPortal = isPortal;
+    this.lastVisit = -1;
+  }
+  visit() {
+    if (!this.isPortal) {
+      this.lastVisit = 0;
+    } else {
+      window.location.href = "../sketch2";
+    }
+    
+  }
+  update() {
+    if (this.lastVisit >= 0) {
+      this.lastVisit++;
+      fill(lerpColor(color1, color2, (decay * this.lastVisit)));
+      if ((this.lastVisit * decay) > 1) {
+        this.wlastVisit = -1;
+      }
+    } else if (!this.isPortal) {
+      fill(0);
+    } else {
+      fill(portalColor);
+    }
+    rect(this.x, this.y, xScale, yScale);
   }
 }
