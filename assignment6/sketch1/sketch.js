@@ -1,7 +1,7 @@
 let density = 20;
 let cells = [];
-let xCt = 20;
-let yCt = 15;
+let xCt = 30;
+let yCt = 16;
 let xScale, yScale;
 let playerX, playerY;
 let lastPlayerDir = 0;
